@@ -602,10 +602,10 @@ Fatura ve Ödeme gününe kadar Vergiler de meydana gelebilecek değişiklikler 
                 previewContent.style.height = 'auto';
                 previewContent.style.overflow = 'visible';
                 
-                // A4 boyutları
-                const A4_WIDTH = 210; // mm
-                const A4_HEIGHT = 297; // mm
-                const A4_PADDING = 20; // mm
+                // A4 boyutları (px cinsinden)
+                const A4_WIDTH = 794; // px (210mm = 794px)
+                const A4_HEIGHT = 1123; // px (297mm = 1123px)
+                const A4_PADDING = 76; // px (20mm = 76px)
                 const CONTENT_WIDTH = A4_WIDTH - (A4_PADDING * 2);
                 const CONTENT_HEIGHT = A4_HEIGHT - (A4_PADDING * 2);
                 
@@ -650,8 +650,8 @@ Fatura ve Ödeme gününe kadar Vergiler de meydana gelebilecek değişiklikler 
                         pdf.addPage();
                     }
                     
-                    // Resmi A4 sayfasına ekle
-                    pdf.addImage(imgData, 'PNG', 0, 0, A4_WIDTH, A4_HEIGHT);
+                    // Resmi A4 sayfasına ekle (jsPDF mm birimlerini kullanır)
+                    pdf.addImage(imgData, 'PNG', 0, 0, 210, 297);
                     
                     console.log(`Sayfa ${i + 1} işlendi`);
                 }
