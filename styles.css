@@ -136,24 +136,31 @@ body {
     max-width: 100%;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1600px) {
     .main-content {
         grid-template-columns: 1fr;
     }
     
-    /* Orta boyutlu ekranlar için A4 sayfalarını küçült */
+    /* Büyük ekranlar için A4 sayfalarını hafif küçült */
+    .pdf-page {
+        width: 95%;
+        max-width: 900px;
+        transform: scale(0.95);
+        transform-origin: top center;
+    }
+}
+
+@media (max-width: 1400px) {
     .pdf-page {
         width: 90%;
-        max-width: 794px;
         transform: scale(0.9);
-        transform-origin: top center;
     }
 }
 
 @media (max-width: 1200px) {
     .pdf-page {
         width: 85%;
-        transform: scale(0.8);
+        transform: scale(0.85);
     }
 }
 
@@ -281,11 +288,13 @@ body {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     border-radius: 15px;
-    padding: 30px;
+    padding: 20px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     max-height: none; /* Yükseklik sınırını kaldır */
     overflow-y: auto; /* Dikey kaydırma ekle */
     width: 100%;
+    display: flex;
+    justify-content: center; /* A4 sayfalarını ortala */
 }
 
 .preview-header {
@@ -304,33 +313,36 @@ body {
 
 /* Teklif önizlemesi */
 .proposal-preview {
-    background: white;
+    background: transparent; /* Arka planı şeffaf yap */
     padding: 0; /* Padding kaldırıldı - sayfalar kendi padding'ini kullanacak */
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 0; /* Köşe yuvarlaklığını kaldır */
+    box-shadow: none; /* Gölgeyi kaldır */
     font-family: 'Arial', sans-serif;
     line-height: 1.4;
     max-width: 100%;
-    margin: 0 auto;
+    margin: 0;
     width: 100%;
     font-size: 12px;
     max-height: none; /* Önizleme içeriğinin yükseklik sınırını kaldır */
     overflow: visible; /* İçerik taşmasını engelle */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* A4 sayfalarını ortala */
 }
 
 /* PDF sayfa ayırıcıları - A4 boyutları */
 .pdf-page {
     page-break-after: always;
-    width: 794px; /* A4 genişlik (210mm = 794px) */
-    height: 1123px; /* A4 yükseklik (297mm = 1123px) */
-    padding: 76px; /* 20mm = 76px */
+    width: 900px; /* A4 genişlik - daha büyük */
+    height: 1275px; /* A4 yükseklik - daha büyük */
+    padding: 80px; /* Padding artırıldı */
     box-sizing: border-box;
     background: white;
-    margin: 0 auto 20px auto; /* Ortala */
+    margin: 0 auto 30px auto; /* Ortala */
     border: 1px solid #ddd;
     display: block;
     overflow: hidden; /* İçerik taşmasını engelle */
-    max-width: 100%; /* Responsive için */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Gölge ekle */
 }
 
 .pdf-page:last-child {
@@ -748,10 +760,10 @@ body {
     /* A4 sayfaları mobilde küçült */
     .pdf-page {
         width: 100%;
-        max-width: 794px; /* 210mm = 794px */
+        max-width: 900px;
         height: auto;
-        min-height: 1123px; /* 297mm = 1123px */
-        transform: scale(0.7);
+        min-height: 1275px;
+        transform: scale(0.6);
         transform-origin: top center;
         margin: 0 auto 20px auto;
     }
