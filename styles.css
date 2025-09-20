@@ -1,0 +1,809 @@
+/* Reset ve temel stiller */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+}
+
+/* Header */
+.header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.logo-circle {
+    width: 80px;
+    height: 80px;
+    background: #dc3545;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.logo-letter {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    font-family: 'Arial', sans-serif;
+}
+
+.logo h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #dc3545;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.slogan {
+    font-size: 1rem;
+    color: #ff6b35;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Butonlar */
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-sm {
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+/* Ana içerik */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    min-height: auto; /* Minimum yükseklik kaldırıldı */
+    max-width: 100%;
+}
+
+@media (max-width: 1400px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Form bölümü */
+.form-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    max-height: none; /* Yükseklik sınırını kaldır */
+    overflow: visible; /* Kaydırmayı kaldır */
+}
+
+/* Sayfa bölümleri */
+.page-section {
+    margin-bottom: 40px;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 20px;
+    background: #f8f9fa;
+}
+
+.page-header {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.page-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.page-header i {
+    margin-right: 10px;
+}
+
+.form-group {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.form-group:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.form-group h2 {
+    color: #495057;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-group h2 i {
+    color: #667eea;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-field label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #495057;
+    font-size: 14px;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    padding: 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-field input[readonly] {
+    background-color: #f8f9fa;
+    color: #6c757d;
+}
+
+/* Hizmet öğeleri */
+.service-item {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #e9ecef;
+}
+
+.service-item .form-row {
+    margin-bottom: 0;
+}
+
+/* Önizleme bölümü */
+.preview-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    max-height: none; /* Yükseklik sınırını kaldır */
+    overflow-y: auto; /* Dikey kaydırma ekle */
+    width: 100%;
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.preview-header h2 {
+    color: #495057;
+    font-size: 1.5rem;
+}
+
+/* Teklif önizlemesi */
+.proposal-preview {
+    background: white;
+    padding: 0; /* Padding kaldırıldı - sayfalar kendi padding'ini kullanacak */
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    line-height: 1.4;
+    max-width: 100%;
+    margin: 0 auto;
+    width: 100%;
+    font-size: 12px;
+    max-height: none; /* Önizleme içeriğinin yükseklik sınırını kaldır */
+    overflow: visible; /* İçerik taşmasını engelle */
+}
+
+/* PDF sayfa ayırıcıları - A4 boyutları */
+.pdf-page {
+    page-break-after: always;
+    width: 210mm; /* A4 genişlik */
+    height: 297mm; /* A4 yükseklik */
+    padding: 20mm;
+    box-sizing: border-box;
+    background: white;
+    margin: 0 auto 20px auto; /* Ortala */
+    border: 1px solid #ddd;
+    display: block;
+    overflow: hidden; /* İçerik taşmasını engelle */
+}
+
+.pdf-page:last-child {
+    page-break-after: auto;
+    margin-bottom: 0;
+}
+
+/* PDF için özel stiller */
+#previewSection {
+    font-family: 'Arial', sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#previewSection * {
+    box-sizing: border-box;
+}
+
+#previewSection table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+}
+
+#previewSection th,
+#previewSection td {
+    border: 1px solid #333 !important;
+    padding: 8px !important;
+    vertical-align: top !important;
+}
+
+@media print {
+    .pdf-page {
+        page-break-after: always;
+        margin-bottom: 0;
+        border: none;
+        width: 210mm !important;
+        height: 297mm !important;
+        padding: 20mm !important;
+    }
+    
+    .pdf-page:last-child {
+        page-break-after: auto;
+    }
+    
+    /* Print için sayfa düzenini optimize et */
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .container {
+        padding: 0;
+    }
+    
+    .header, .form-section {
+        display: none;
+    }
+    
+    .preview-section {
+        background: none;
+        box-shadow: none;
+        padding: 0;
+    }
+}
+
+.proposal-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #dc3545;
+}
+
+.client-info {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #dc3545;
+}
+
+.client-info h3 {
+    color: #dc3545;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.client-info p {
+    margin: 8px 0;
+    font-size: 14px;
+}
+
+.proposal-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.proposal-logo-circle {
+    width: 60px;
+    height: 60px;
+    background: #dc3545;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.proposal-logo-letter {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    font-family: 'Arial', sans-serif;
+}
+
+.proposal-company-name {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #dc3545;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.proposal-slogan {
+    font-size: 0.9rem;
+    color: #ff6b35;
+    font-weight: 600;
+    margin: 5px 0 0 0;
+    letter-spacing: 1px;
+}
+
+.proposal-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.proposal-subtitle {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+.proposal-date-info {
+    text-align: right;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.proposal-greeting {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.proposal-content {
+    margin-bottom: 30px;
+    text-align: justify;
+}
+
+.proposal-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.proposal-company,
+.proposal-client {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.proposal-company h3,
+.proposal-client h3 {
+    color: #495057;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.proposal-details {
+    margin-bottom: 40px;
+}
+
+.proposal-details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    border: 1px solid #333;
+}
+
+.proposal-details th,
+.proposal-details td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #333;
+}
+
+.proposal-details th {
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+}
+
+.proposal-details tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.proposal-total {
+    text-align: right;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #333;
+}
+
+.proposal-total-row {
+    font-weight: bold;
+    background-color: #f8f9fa;
+}
+
+.proposal-vat-info {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.proposal-included-services {
+    margin-top: 30px;
+}
+
+.proposal-included-services h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    text-decoration: underline;
+}
+
+.proposal-included-services ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.proposal-included-services li {
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.proposal-included-services li:before {
+    content: "•";
+    color: #333;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.proposal-service-details {
+    margin-top: 30px;
+}
+
+.proposal-service-details h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    text-decoration: underline;
+}
+
+.proposal-service-details ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.proposal-service-details li {
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.proposal-service-details li:before {
+    content: "•";
+    color: #333;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.proposal-service-details li strong {
+    color: #333;
+    font-weight: bold;
+}
+
+.proposal-payment-terms {
+    margin-top: 30px;
+}
+
+.proposal-payment-terms h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    text-decoration: underline;
+}
+
+.proposal-validity {
+    margin-top: 30px;
+}
+
+.proposal-validity h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    text-decoration: underline;
+}
+
+.proposal-signature {
+    margin-top: 40px;
+    text-align: left;
+}
+
+.proposal-signature .signature-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.proposal-signature .signature-title {
+    font-weight: bold;
+}
+
+.proposal-notes {
+    margin-top: 30px;
+}
+
+.proposal-notes h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    text-decoration: underline;
+}
+
+.proposal-notes ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.proposal-notes li {
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.proposal-notes li:before {
+    content: "•";
+    color: #333;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.proposal-payment {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.proposal-payment h3 {
+    color: #495057;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+/* Responsive tasarım */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .header-actions {
+        justify-content: center;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .proposal-info {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .proposal-preview {
+        padding: 0;
+    }
+    
+    .proposal-title {
+        font-size: 2rem;
+    }
+    
+    /* A4 sayfaları mobilde küçült */
+    .pdf-page {
+        width: 100%;
+        max-width: 210mm;
+        height: auto;
+        min-height: 297mm;
+        transform: scale(0.8);
+        transform-origin: top center;
+        margin: 0 auto 20px auto;
+    }
+}
+
+/* Scrollbar özelleştirme */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #5a6fd8;
+}
+
+/* Animasyonlar */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-section,
+.preview-section {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Hover efektleri */
+.service-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/* Loading durumu */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zincir Teklif Oluşturucu</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.plugin.standard_fonts_metrics.min.js"></script>
+    <script src="https://unpkg.com/jspdf-autotable@3.5.31/dist/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-circle">
+                    <span class="logo-letter">Z</span>
+                </div>
+                <h1>ZİNCİR YAZILIM</h1>
+                <p class="slogan">GELECEĞİ SİZİN İÇİN YAZIYORUZ...</p>
+            </div>
+            <div class="header-actions">
+                <button id="saveBtn" class="btn btn-secondary">
+                    <i class="fas fa-save"></i> Kaydet
+                </button>
+                <button id="loadBtn" class="btn btn-secondary">
+                    <i class="fas fa-folder-open"></i> Yükle
+                </button>
+                <button id="previewBtn" class="btn btn-primary">
+                    <i class="fas fa-eye"></i> Önizleme
+                </button>
+                <button id="exportBtn" class="btn btn-success">
+                    <i class="fas fa-file-pdf"></i> PDF Oluştur
+                </button>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="form-section">
+                <form id="proposalForm">
+                    
+                    <!-- 1. SAYFA BÖLÜMÜ -->
+                    <div class="page-section">
+                        <div class="page-header">
+                            <h2><i class="fas fa-file-alt"></i> 1. SAYFA - TEMEL BİLGİLER</h2>
+                        </div>
+                    <!-- Şirket Bilgileri -->
+                    <div class="form-group">
+                        <h2><i class="fas fa-building"></i> Şirket Bilgileri</h2>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="companyName">Şirket Adı</label>
+                                <input type="text" id="companyName" name="companyName" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="companyPhone">Telefon</label>
+                                <input type="tel" id="companyPhone" name="companyPhone">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="companyEmail">E-posta</label>
+                                <input type="email" id="companyEmail" name="companyEmail">
+                            </div>
+                            <div class="form-field">
+                                <label for="companyWebsite">Website</label>
+                                <input type="url" id="companyWebsite" name="companyWebsite">
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <label for="companyAddress">Adres</label>
+                            <textarea id="companyAddress" name="companyAddress" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Müşteri Bilgileri -->
+                    <div class="form-group">
+                        <h2><i class="fas fa-user"></i> Müşteri Bilgileri</h2>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="clientName">Müşteri Adı/Şirketi</label>
+                                <input type="text" id="clientName" name="clientName" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="clientTitle">Unvan (Sayın ...)</label>
+                                <input type="text" id="clientTitle" name="clientTitle" placeholder="Sayın ...">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="clientEmail">E-posta</label>
+                                <input type="email" id="clientEmail" name="clientEmail">
+                            </div>
+                            <div class="form-field">
+                                <label for="clientPhone">Telefon</label>
+                                <input type="tel" id="clientPhone" name="clientPhone">
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <label for="clientAddress">Adres</label>
+                            <textarea id="clientAddress" name="clientAddress" rows="2"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Teklif Bilgileri -->
+                    <div class="form-group">
+                        <h2><i class="fas fa-file-contract"></i> Teklif Bilgileri</h2>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="proposalNumber">Teklif No</label>
+                                <input type="text" id="proposalNumber" name="proposalNumber" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="proposalDate">Tarih</label>
+                                <input type="date" id="proposalDate" name="proposalDate" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="validUntil">Geçerlilik Tarihi</label>
+                                <input type="date" id="validUntil" name="validUntil">
+                            </div>
+                            <div class="form-field">
+                                <label for="currency">Para Birimi</label>
+                                <select id="currency" name="currency">
+                                    <option value="TRY">₺ (TRY)</option>
+                                    <option value="USD">$ (USD)</option>
+                                    <option value="EUR">€ (EUR)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <!-- 2. SAYFA BÖLÜMÜ -->
+                    <div class="page-section">
+                        <div class="page-header">
+                            <h2><i class="fas fa-file-alt"></i> 2. SAYFA - HİZMET VE DETAYLAR</h2>
+                        </div>
+
+                    <!-- Hizmetler/Ürünler -->
+                    <div class="form-group">
+                        <h2><i class="fas fa-list"></i> Hizmetler/Ürünler</h2>
+                        <div id="servicesContainer">
+                            <div class="service-item">
+                                <div class="form-row">
+                                    <div class="form-field">
+                                        <label>Hizmet/Ürün Adı</label>
+                                        <input type="text" name="serviceDescription" placeholder="Hizmet/Ürün adı">
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Miktar</label>
+                                        <input type="number" name="serviceQuantity" placeholder="1" min="1" value="1">
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Birim Fiyat</label>
+                                        <input type="text" name="serviceUnitPrice" placeholder="1.000,00" pattern="[0-9.,]+" title="Türkçe format: 1.000,00">
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Toplam</label>
+                                        <input type="text" name="serviceTotal" placeholder="1.000,00" readonly>
+                                    </div>
+                                    <div class="form-field">
+                                        <label>İşlem</label>
+                                        <button type="button" class="btn btn-danger btn-sm remove-service">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-field">
+                                    <label>Hizmet Açıklaması (Her satıra bir özellik yazın)</label>
+                                    <textarea name="serviceDetails" rows="4" placeholder="Her satıra bir özellik yazın:&#10;• Web Satış Platformu&#10;• Mobil Uyumlu Site&#10;• Yönetici Paneli&#10;• Sanal Pos Entegrasyonu"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" id="addServiceBtn" class="btn btn-secondary">
+                            <i class="fas fa-plus"></i> Hizmet/Ürün Ekle
+                        </button>
+                    </div>
+
+                    <!-- Fiyata Dahil Olan Hizmetler -->
+                    <div class="form-group">
+                        <h2><i class="fas fa-check-circle"></i> Fiyata Dahil Olan Hizmetler</h2>
+                        <div class="form-field">
+                            <label for="includedServicesText">Fiyata Dahil Olan Hizmetler (Her satıra bir hizmet yazın)</label>
+                            <textarea id="includedServicesText" name="includedServicesText" rows="6" placeholder="Her satıra bir hizmet yazın:&#10;• 1 yıllık Cloud Sunucu Barındırma&#10;• 256 Bit SSL Şifreleme&#10;• Yazılım Destek Hizmeti&#10;• Ücretsiz versiyon güncelleme&#10;• 7/24 teknik destek&#10;• Veri yedekleme hizmeti"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Özel Notlar -->
+                    <div class="form-group">
+                        <h2><i class="fas fa-sticky-note"></i> Özel Notlar</h2>
+                        <div class="form-field">
+                            <label for="notes">Özel Notlar (Her satıra bir not yazın)</label>
+                            <textarea id="notes" name="notes" rows="6" placeholder="Her satıra bir not yazın:&#10;• Fatura ve Ödeme gününe kadar Vergiler de meydana gelebilecek değişiklikler aynı oranda fiyatlara yansıtılır&#10;• Özel geliştirme talepleriniz, 5.500TL / Adam / Saat hesaplaması üzerinden belirlenmektedir&#10;• Tüm kurulum ve eğitim süreçleri uzak bağlantı /video konferans toplantı ile gerçekleşmektedir&#10;• Mobil uygulamalar webview uygulama olarak kullanımınıza sunulacak olup, mobil application uygulama talep etmeniz halinde ek bir fiyat teklifi tarafınıza gönderilecektir"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Ödeme Koşulları -->
+                    <div class="form-group">
+                        <h2><i class="fas fa-credit-card"></i> Ödeme Koşulları</h2>
+                        <div class="form-field">
+                            <label for="paymentTerms">Ödeme Koşulları</label>
+                            <textarea id="paymentTerms" name="paymentTerms" rows="3" placeholder="Sipariş onayı ile birlikte Nakit, havale eft, kredi kartı tek çekim olarak ödeme talep edilmektedir."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- İndirim Bilgileri -->
+                    <div class="form-group">
+                        <h2><i class="fas fa-percentage"></i> İndirim Bilgileri</h2>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="specialDiscount">Firmanıza Özel İndirim (TL)</label>
+                                <input type="text" id="specialDiscount" name="specialDiscount" placeholder="0,00" pattern="[0-9.,]+" title="Türkçe format: 1.000,00">
+                            </div>
+                            <div class="form-field">
+                                <label for="additionalDiscount">Size Özel Ek İndirim (TL)</label>
+                                <input type="text" id="additionalDiscount" name="additionalDiscount" placeholder="0,00" pattern="[0-9.,]+" title="Türkçe format: 1.000,00">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="vatRate">KDV Oranı (%)</label>
+                                <input type="number" id="vatRate" name="vatRate" placeholder="20" step="0.01" min="0" max="100">
+                            </div>
+                            <div class="form-field">
+                                <label for="vatIncluded">KDV Dahil mi?</label>
+                                <select id="vatIncluded" name="vatIncluded">
+                                    <option value="false">Hayır (KDV Eklenecek)</option>
+                                    <option value="true">Evet (KDV Dahil)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="preview-section" id="previewSection" style="display: none;">
+                <div class="preview-header">
+                    <h2>Teklif Önizlemesi</h2>
+                    <button id="closePreviewBtn" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Kapat
+                    </button>
+                </div>
+                <div id="proposalPreview" class="proposal-preview">
+                    <!-- Önizleme içeriği buraya gelecek -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="file" id="fileInput" accept=".json" style="display: none;">
+    
+    <script src="script.js"></script>
+</body>
+</html>
