@@ -602,10 +602,11 @@ Fatura ve Ödeme gününe kadar Vergiler de meydana gelebilecek değişiklikler 
                 previewContent.style.height = 'auto';
                 previewContent.style.overflow = 'visible';
                 
-                // A4 boyutları (px cinsinden) - güncellenmiş boyutlar
-                const A4_WIDTH = 900; // px - daha büyük
-                const A4_HEIGHT = 1275; // px - daha büyük
-                const A4_PADDING = 80; // px - artırıldı
+                // A4 boyutları - dinamik boyutlandırma
+                const pageElement = pdfPages[0];
+                const A4_WIDTH = pageElement.offsetWidth;
+                const A4_HEIGHT = pageElement.offsetHeight;
+                const A4_PADDING = Math.max(40, A4_WIDTH * 0.05); // %5 padding veya minimum 40px
                 const CONTENT_WIDTH = A4_WIDTH - (A4_PADDING * 2);
                 const CONTENT_HEIGHT = A4_HEIGHT - (A4_PADDING * 2);
                 
@@ -651,7 +652,10 @@ Fatura ve Ödeme gününe kadar Vergiler de meydana gelebilecek değişiklikler 
                     }
                     
                     // Resmi A4 sayfasına ekle (jsPDF mm birimlerini kullanır)
-                    pdf.addImage(imgData, 'PNG', 0, 0, 210, 297);
+                    // Dinamik boyutları mm'ye çevir (1px = 0.264583mm)
+                    const mmWidth = A4_WIDTH * 0.264583;
+                    const mmHeight = A4_HEIGHT * 0.264583;
+                    pdf.addImage(imgData, 'PNG', 0, 0, mmWidth, mmHeight);
                     
                     console.log(`Sayfa ${i + 1} işlendi`);
                 }

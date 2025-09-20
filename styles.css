@@ -140,28 +140,6 @@ body {
     .main-content {
         grid-template-columns: 1fr;
     }
-    
-    /* Büyük ekranlar için A4 sayfalarını hafif küçült */
-    .pdf-page {
-        width: 95%;
-        max-width: 900px;
-        transform: scale(0.95);
-        transform-origin: top center;
-    }
-}
-
-@media (max-width: 1400px) {
-    .pdf-page {
-        width: 90%;
-        transform: scale(0.9);
-    }
-}
-
-@media (max-width: 1200px) {
-    .pdf-page {
-        width: 85%;
-        transform: scale(0.85);
-    }
 }
 
 /* Form bölümü */
@@ -333,9 +311,12 @@ body {
 /* PDF sayfa ayırıcıları - A4 boyutları */
 .pdf-page {
     page-break-after: always;
-    width: 900px; /* A4 genişlik - daha büyük */
-    height: 1275px; /* A4 yükseklik - daha büyük */
-    padding: 80px; /* Padding artırıldı */
+    width: 95vw; /* Ekran genişliğinin %95'i */
+    max-width: 1200px; /* Maksimum genişlik sınırı */
+    height: calc(95vw * 1.414); /* A4 oranı (1:1.414) */
+    max-height: 1700px; /* Maksimum yükseklik sınırı */
+    padding: 4vw; /* Responsive padding */
+    max-padding: 80px; /* Maksimum padding */
     box-sizing: border-box;
     background: white;
     margin: 0 auto 30px auto; /* Ortala */
@@ -757,14 +738,12 @@ body {
         font-size: 2rem;
     }
     
-    /* A4 sayfaları mobilde küçült */
+    /* A4 sayfaları mobilde tam genişlik */
     .pdf-page {
-        width: 100%;
-        max-width: 900px;
-        height: auto;
-        min-height: 1275px;
-        transform: scale(0.6);
-        transform-origin: top center;
+        width: 100vw;
+        max-width: 100%;
+        height: calc(100vw * 1.414);
+        padding: 3vw;
         margin: 0 auto 20px auto;
     }
 }
