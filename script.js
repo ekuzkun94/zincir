@@ -602,14 +602,6 @@ Fatura ve Ödeme gününe kadar Vergiler de meydana gelebilecek değişiklikler 
                 previewContent.style.height = 'auto';
                 previewContent.style.overflow = 'visible';
                 
-                // A4 boyutları - dinamik boyutlandırma
-                const pageElement = pdfPages[0];
-                const A4_WIDTH = pageElement.offsetWidth;
-                const A4_HEIGHT = pageElement.offsetHeight;
-                const A4_PADDING = Math.max(40, A4_WIDTH * 0.05); // %5 padding veya minimum 40px
-                const CONTENT_WIDTH = A4_WIDTH - (A4_PADDING * 2);
-                const CONTENT_HEIGHT = A4_HEIGHT - (A4_PADDING * 2);
-                
                 // PDF sayfalarını bul
                 const pdfPages = previewContent.querySelectorAll('.pdf-page');
                 
@@ -618,46 +610,52 @@ Fatura ve Ödeme gününe kadar Vergiler de meydana gelebilecek değişiklikler 
                     return;
                 }
                 
+                // A4 boyutları - sabit boyutlar (daha güvenli)
+                const A4_WIDTH = 210; // mm
+                const A4_HEIGHT = 297; // mm
+                
                 const pdf = new jsPDF('p', 'mm', 'a4');
                 
                 // Her sayfayı ayrı ayrı işle
                 for (let i = 0; i < pdfPages.length; i++) {
-                    const page = pdfPages[i];
-                    
-                    // Sayfa görünürlüğünü ayarla
-                    page.style.position = 'relative';
-                    page.style.left = '0';
-                    page.style.top = '0';
-                    page.style.margin = '0';
-                    page.style.border = '1px solid #ddd';
-                    
-                    // HTML2Canvas ile sayfayı yakala
-                    const canvas = await html2canvas(page, {
-                        scale: 2,
-                        useCORS: true,
-                        allowTaint: true,
-                        backgroundColor: '#ffffff',
-                        logging: false,
-                        width: page.offsetWidth,
-                        height: page.offsetHeight,
-                        windowWidth: page.offsetWidth,
-                        windowHeight: page.offsetHeight
-                    });
-                    
-                    const imgData = canvas.toDataURL('image/png');
-                    
-                    // İlk sayfa değilse yeni sayfa ekle
-                    if (i > 0) {
-                        pdf.addPage();
+                    try {
+                        const page = pdfPages[i];
+                        
+                        // Sayfa görünürlüğünü ayarla
+                        page.style.position = 'relative';
+                        page.style.left = '0';
+                        page.style.top = '0';
+                        page.style.margin = '0';
+                        page.style.border = '1px solid #ddd';
+                        
+                        // HTML2Canvas ile sayfayı yakala
+                        const canvas = await html2canvas(page, {
+                            scale: 2,
+                            useCORS: true,
+                            allowTaint: true,
+                            backgroundColor: '#ffffff',
+                            logging: false,
+                            width: page.offsetWidth,
+                            height: page.offsetHeight,
+                            windowWidth: page.offsetWidth,
+                            windowHeight: page.offsetHeight
+                        });
+                        
+                        const imgData = canvas.toDataURL('image/png');
+                        
+                        // İlk sayfa değilse yeni sayfa ekle
+                        if (i > 0) {
+                            pdf.addPage();
+                        }
+                        
+                        // Resmi A4 sayfasına ekle (jsPDF mm birimlerini kullanır)
+                        pdf.addImage(imgData, 'PNG', 0, 0, A4_WIDTH, A4_HEIGHT);
+                        
+                        console.log(`Sayfa ${i + 1} işlendi`);
+                    } catch (pageError) {
+                        console.error(`Sayfa ${i + 1} işlenirken hata:`, pageError);
+                        // Hata olsa bile devam et
                     }
-                    
-                    // Resmi A4 sayfasına ekle (jsPDF mm birimlerini kullanır)
-                    // Dinamik boyutları mm'ye çevir (1px = 0.264583mm)
-                    const mmWidth = A4_WIDTH * 0.264583;
-                    const mmHeight = A4_HEIGHT * 0.264583;
-                    pdf.addImage(imgData, 'PNG', 0, 0, mmWidth, mmHeight);
-                    
-                    console.log(`Sayfa ${i + 1} işlendi`);
                 }
                 
                 // PDF'i indir
