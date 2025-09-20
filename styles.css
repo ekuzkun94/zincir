@@ -300,7 +300,7 @@ body {
     max-width: 100%;
     margin: 0;
     width: 100%;
-    font-size: 12px;
+    font-size: 20px; /* 16px'den 20px'e çıkarıldı */
     max-height: none; /* Önizleme içeriğinin yükseklik sınırını kaldır */
     overflow: visible; /* İçerik taşmasını engelle */
     display: flex;
@@ -315,8 +315,8 @@ body {
     max-width: 1200px; /* Maksimum genişlik sınırı */
     height: calc(95vw * 1.414); /* A4 oranı (1:1.414) */
     max-height: 1700px; /* Maksimum yükseklik sınırı */
-    padding: 4vw; /* Responsive padding */
-    max-padding: 80px; /* Maksimum padding */
+    padding: 6vw; /* Responsive padding - 4vw'den 6vw'ye çıkarıldı */
+    max-padding: 120px; /* Maksimum padding - 80px'den 120px'e çıkarıldı */
     box-sizing: border-box;
     background: white;
     margin: 0 auto 30px auto; /* Ortala */
@@ -398,92 +398,182 @@ body {
 }
 
 .client-info {
-    margin-bottom: 30px;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    border-left: 4px solid #dc3545;
+    margin-bottom: 50px; /* 30px'den 50px'e çıkarıldı - müşteri bilgileri ile teklif metni arasındaki boşluğu artır */
+    padding: 25px;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-radius: 15px;
+    border-left: 4px solid #28a745;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.client-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #28a745, #20c997);
 }
 
 .client-info h3 {
-    color: #dc3545;
-    margin-bottom: 15px;
-    font-size: 16px;
-    font-weight: bold;
+    color: #28a745;
+    margin-bottom: 20px;
+    font-size: 24px; /* 20px'den 24px'e çıkarıldı */
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.client-info h3::before {
+    content: '👤';
+    font-size: 1.2rem;
 }
 
 .client-info p {
     margin: 8px 0;
-    font-size: 14px;
+    font-size: 22px; /* 18px'den 22px'e çıkarıldı */
 }
 
 .proposal-logo {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px; /* 40px'den 50px'e çıkarıldı */
+    position: relative;
+    padding: 30px;
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.05), rgba(32, 201, 151, 0.05));
+    border-radius: 20px;
+    border: 2px solid rgba(40, 167, 69, 0.1);
 }
 
 .proposal-logo-circle {
-    width: 60px;
-    height: 60px;
-    background: #dc3545;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #28a745, #20c997);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+    position: relative;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.proposal-logo-circle::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.3;
 }
 
 .proposal-logo-letter {
-    font-size: 2rem;
-    font-weight: bold;
+    font-size: 2.5rem;
+    font-weight: 900;
     color: white;
     font-family: 'Arial', sans-serif;
-}
-
-.proposal-company-name {
-    font-size: 2rem;
-    font-weight: 900;
-    color: #dc3545;
-    margin: 0;
-    letter-spacing: 2px;
-}
-
-.proposal-slogan {
-    font-size: 0.9rem;
-    color: #ff6b35;
-    font-weight: 600;
-    margin: 5px 0 0 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     letter-spacing: 1px;
 }
 
+.proposal-company-name {
+    font-size: 3.2rem; /* 3rem'den 3.2rem'e çıkarıldı */
+    font-weight: 900;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+    letter-spacing: 3px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.proposal-company-name::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    border-radius: 2px;
+}
+
+.proposal-slogan {
+    font-size: 1.5rem; /* 1.4rem'den 1.5rem'e çıkarıldı */
+    color: #6c757d;
+    font-weight: 500;
+    margin: 20px 0 0 0;
+    font-style: italic;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
 .proposal-title {
-    font-size: 2rem;
+    font-size: 3rem; /* 2.5rem'den 3rem'e çıkarıldı */
     font-weight: bold;
     color: #333;
     margin-bottom: 10px;
 }
 
 .proposal-subtitle {
-    font-size: 1rem;
+    font-size: 1.5rem; /* 1.2rem'den 1.5rem'e çıkarıldı */
     color: #6c757d;
 }
 
 .proposal-date-info {
     text-align: right;
     margin-bottom: 30px;
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 24px; /* 22px'den 24px'e çıkarıldı */
+    padding: 15px 20px;
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(32, 201, 151, 0.1));
+    border-radius: 10px;
+    border-left: 4px solid #28a745;
+    color: #28a745;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .proposal-greeting {
-    margin-bottom: 20px;
-    font-weight: bold;
+    margin-bottom: 25px;
+    font-weight: 700;
+    font-size: 26px; /* 24px'den 26px'e çıkarıldı */
+    color: #28a745;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(32, 201, 151, 0.1));
+    border-radius: 10px;
+    border-left: 4px solid #28a745;
+    position: relative;
+}
+
+.proposal-greeting::before {
+    content: '💬';
+    margin-right: 10px;
+    font-size: 1.2rem;
 }
 
 .proposal-content {
     margin-bottom: 30px;
     text-align: justify;
+    font-size: 22px; /* 18px'den 22px'e çıkarıldı */
+    line-height: 1.8; /* Satır aralığı artırıldı */
+    padding: 20px;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(40, 167, 69, 0.1);
 }
 
 .proposal-info {
@@ -495,16 +585,49 @@ body {
 
 .proposal-company,
 .proposal-client {
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(40, 167, 69, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.proposal-company::before,
+.proposal-client::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #28a745, #20c997);
+}
+
+.proposal-company {
+    margin-bottom: 50px; /* Şirket bilgileri ile müşteri bilgileri arasındaki boşluğu artır */
 }
 
 .proposal-company h3,
 .proposal-client h3 {
-    color: #495057;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
+    color: #28a745;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.proposal-company h3::before,
+.proposal-client h3::before {
+    content: '🏢';
+    font-size: 1.2rem;
+}
+
+.proposal-client h3::before {
+    content: '👤';
 }
 
 .proposal-details {
@@ -514,58 +637,107 @@ body {
 .proposal-details table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
-    border: 1px solid #333;
+    margin-bottom: 25px;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 .proposal-details th,
 .proposal-details td {
-    padding: 12px;
+    padding: 18px; /* 15px'den 18px'e çıkarıldı */
     text-align: left;
-    border: 1px solid #333;
+    border: none;
+    font-size: 18px; /* Tablo içeriği font boyutu eklendi */
 }
 
 .proposal-details th {
-    background-color: #333;
+    background: linear-gradient(135deg, #28a745, #20c997);
     color: white;
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 20px; /* 16px'den 20px'e çıkarıldı */
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .proposal-details tr:nth-child(even) {
-    background-color: #f8f9fa;
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+}
+
+.proposal-details tr:nth-child(odd) {
+    background: #ffffff;
+}
+
+.proposal-details tr:hover {
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(32, 201, 151, 0.1));
+    transform: translateY(-1px);
+    transition: all 0.3s ease;
 }
 
 .proposal-total {
     text-align: right;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #333;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 2px solid #333;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #28a745;
+    margin-top: 25px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(32, 201, 151, 0.1));
+    border-radius: 10px;
+    border-left: 4px solid #28a745;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .proposal-total-row {
-    font-weight: bold;
-    background-color: #f8f9fa;
+    font-weight: 700;
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    color: #28a745;
 }
 
 .proposal-vat-info {
     margin-top: 20px;
-    font-size: 0.9rem;
-    color: #666;
+    font-size: 1rem;
+    color: #6c757d;
+    padding: 15px;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-radius: 8px;
+    border: 1px solid rgba(40, 167, 69, 0.1);
 }
 
 .proposal-included-services {
-    margin-top: 30px;
+    margin-top: 40px;
+    padding: 25px;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(40, 167, 69, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.proposal-included-services::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #28a745, #20c997);
 }
 
 .proposal-included-services h3 {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 15px;
-    text-decoration: underline;
+    font-size: 1.5rem; /* 1.2rem'den 1.5rem'e çıkarıldı */
+    font-weight: 700;
+    color: #28a745;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.proposal-included-services h3::before {
+    content: '✅';
+    font-size: 1.3rem;
 }
 
 .proposal-included-services ul {
@@ -574,17 +746,30 @@ body {
 }
 
 .proposal-included-services li {
-    margin-bottom: 8px;
-    padding-left: 20px;
+    margin-bottom: 12px; /* 8px'den 12px'e çıkarıldı */
+    padding: 12px 15px 12px 45px; /* Padding artırıldı */
     position: relative;
+    background: rgba(40, 167, 69, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid #28a745;
+    font-size: 18px; /* Font boyutu eklendi */
+    line-height: 1.6;
+    transition: all 0.3s ease;
+}
+
+.proposal-included-services li:hover {
+    background: rgba(40, 167, 69, 0.1);
+    transform: translateX(5px);
 }
 
 .proposal-included-services li:before {
-    content: "•";
-    color: #333;
+    content: "✓";
+    color: #28a745;
     font-weight: bold;
     position: absolute;
-    left: 0;
+    left: 15px;
+    top: 12px;
+    font-size: 16px;
 }
 
 .proposal-service-details {
@@ -663,15 +848,39 @@ body {
 }
 
 .proposal-notes {
-    margin-top: 30px;
+    margin-top: 40px;
+    padding: 25px;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(40, 167, 69, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.proposal-notes::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #28a745, #20c997);
 }
 
 .proposal-notes h3 {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 15px;
-    text-decoration: underline;
+    font-size: 1.5rem; /* 1.2rem'den 1.5rem'e çıkarıldı */
+    font-weight: 700;
+    color: #28a745;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.proposal-notes h3::before {
+    content: '📝';
+    font-size: 1.3rem;
 }
 
 .proposal-notes ul {
@@ -680,30 +889,72 @@ body {
 }
 
 .proposal-notes li {
-    margin-bottom: 8px;
-    padding-left: 20px;
+    margin-bottom: 12px; /* 8px'den 12px'e çıkarıldı */
+    padding: 12px 15px 12px 45px; /* Padding artırıldı */
     position: relative;
+    background: rgba(40, 167, 69, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid #28a745;
+    font-size: 18px; /* Font boyutu eklendi */
+    line-height: 1.6;
+    transition: all 0.3s ease;
+}
+
+.proposal-notes li:hover {
+    background: rgba(40, 167, 69, 0.1);
+    transform: translateX(5px);
 }
 
 .proposal-notes li:before {
-    content: "•";
-    color: #333;
+    content: "📌";
+    color: #28a745;
     font-weight: bold;
     position: absolute;
-    left: 0;
+    left: 15px;
+    top: 12px;
+    font-size: 16px;
 }
 
 .proposal-payment {
-    margin-top: 30px;
-    padding: 20px;
-    background: #f8f9fa;
-    border-radius: 8px;
+    margin-top: 40px;
+    padding: 25px;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(40, 167, 69, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.proposal-payment::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #28a745, #20c997);
 }
 
 .proposal-payment h3 {
-    color: #495057;
-    margin-bottom: 10px;
-    font-size: 1.1rem;
+    color: #28a745;
+    margin-bottom: 15px;
+    font-size: 1.5rem; /* 1.1rem'den 1.5rem'e çıkarıldı */
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.proposal-payment h3::before {
+    content: '💳';
+    font-size: 1.3rem;
+}
+
+.proposal-payment p {
+    font-size: 18px; /* Font boyutu eklendi */
+    line-height: 1.6;
+    color: #555;
 }
 
 /* Responsive tasarım */

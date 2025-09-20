@@ -216,7 +216,8 @@ Fatura ve Ödeme gününe kadar Vergiler de meydana gelebilecek değişiklikler 
                 number: document.getElementById('proposalNumber').value,
                 date: document.getElementById('proposalDate').value,
                 validUntil: document.getElementById('validUntil').value,
-                currency: document.getElementById('currency').value
+                currency: document.getElementById('currency').value,
+                text: document.getElementById('proposalText').value
             },
             services: this.getServicesData(),
             includedServices: this.getIncludedServicesText(),
@@ -360,7 +361,7 @@ Fatura ve Ödeme gününe kadar Vergiler de meydana gelebilecek değişiklikler 
                 
                 <div class="client-info">
                     <h3>MÜŞTERİ BİLGİLERİ</h3>
-                    <p><strong>${data.client.title || 'Sayın'} ${data.client.name}</strong></p>
+                    <p><strong>${data.client.name}</strong></p>
                     ${data.client.company ? `<p>${data.client.company}</p>` : ''}
                     ${data.client.address ? `<p>${data.client.address}</p>` : ''}
                     ${data.client.phone ? `<p>Tel: ${data.client.phone}</p>` : ''}
@@ -368,12 +369,11 @@ Fatura ve Ödeme gününe kadar Vergiler de meydana gelebilecek değişiklikler 
                 </div>
                 
                 <div class="proposal-greeting">
-                    ${data.client.title || 'Sayın'} ${data.client.name},
+                    ${data.client.title || 'Sayın'},
                 </div>
                 
                 <div class="proposal-content">
-                    <p>Öncelikle firmamıza gösterdiğiniz ilgi ve detaylı bilgilendirmeler için teşekkür ederiz. Firmanıza özel olarak hazırlanan yazılım hizmetimiz ile ilgili detaylı fiyat teklifimiz aşağıdaki sayfalarda yer almaktadır.</p>
-                    <p>Teklifimizin olumlu değerlendirmesini diler, görüş ve önerilerinizi rica ederiz.</p>
+                    ${data.proposal.text ? data.proposal.text.split('\n').map(paragraph => `<p>${paragraph}</p>`).join('') : '<p>Öncelikle firmamıza gösterdiğiniz ilgi ve detaylı bilgilendirmeler için teşekkür ederiz. Firmanıza özel olarak hazırlanan yazılım hizmetimiz ile ilgili detaylı fiyat teklifimiz aşağıdaki sayfalarda yer almaktadır.</p><p>Teklifimizin olumlu değerlendirmesini diler, görüş ve önerilerinizi rica ederiz.</p>'}
                 </div>
             </div>
             
@@ -384,7 +384,7 @@ Fatura ve Ödeme gününe kadar Vergiler de meydana gelebilecek değişiklikler 
                         Yazılım Ürün ve Hizmetler Fiyatlandırma Detayları
                     </h2>
                 
-                <table style="width: 100%; border-collapse: collapse; margin: 15px 0; table-layout: fixed; font-size: 11px;">
+                <table style="width: 100%; border-collapse: collapse; margin: 15px 0; table-layout: fixed; font-size: 20px;">
                     <thead>
                         <tr style="background-color: #333; color: white;">
                             <th style="padding: 12px; text-align: left; border: 1px solid #333; font-weight: bold; width: 70%;">Teklif Edilen Ürün</th>
@@ -404,7 +404,7 @@ Fatura ve Ödeme gününe kadar Vergiler de meydana gelebilecek değişiklikler 
                                             ${service.details.map(detail => `
                                                 <div style="margin-bottom: 5px; padding-left: 15px; position: relative;">
                                                     <span style="position: absolute; left: 0; top: 0;">•</span>
-                                                    <span style="font-size: 12px;">${detail}</span>
+                                                    <span style="font-size: 20px;">${detail}</span>
                                                 </div>
                                             `).join('')}
                                         </div>
@@ -417,21 +417,21 @@ Fatura ve Ödeme gününe kadar Vergiler de meydana gelebilecek değişiklikler 
                     </tbody>
                 </table>
                 
-                <div style="text-align: right; margin-top: 15px; padding: 15px; background-color: #f8f9fa; border-radius: 5px; font-size: 11px;">
-                    <div style="margin-bottom: 10px; font-size: 14px;">
+                <div style="text-align: right; margin-top: 15px; padding: 15px; background-color: #f8f9fa; border-radius: 5px; font-size: 20px;">
+                    <div style="margin-bottom: 10px; font-size: 22px;">
                         <strong>TOPLAM:</strong> ${currencySymbol}${this.formatTurkishNumber(subtotal)}
                     </div>
                     ${data.discounts.special > 0 ? `
-                        <div style="margin-bottom: 10px; font-size: 14px;">
+                        <div style="margin-bottom: 10px; font-size: 22px;">
                             <strong>FİRMANIZA ÖZEL İNDİRİM:</strong> ${currencySymbol}${this.formatTurkishNumber(data.discounts.special)}
                         </div>
                     ` : ''}
                     ${data.discounts.additional > 0 ? `
-                        <div style="margin-bottom: 10px; font-size: 14px;">
+                        <div style="margin-bottom: 10px; font-size: 22px;">
                             <strong>SİZE ÖZEL EK İNDİRİM:</strong> ${currencySymbol}${this.formatTurkishNumber(data.discounts.additional)}
                         </div>
                     ` : ''}
-                    <div style="font-size: 16px; font-weight: bold; color: #333; border-top: 2px solid #333; padding-top: 10px;">
+                    <div style="font-size: 24px; font-weight: bold; color: #333; border-top: 2px solid #333; padding-top: 10px;">
                         <strong>GENEL TOPLAM:</strong> ${currencySymbol}${this.formatTurkishNumber(grandTotal)}
                     </div>
                 </div>
@@ -675,73 +675,79 @@ Fatura ve Ödeme gününe kadar Vergiler de meydana gelebilecek değişiklikler 
         const formData = this.getFormData();
         
         // Logo ve başlık
-        pdf.setFillColor(220, 53, 69);
-        pdf.circle(105, 25, 8, 'F');
+        pdf.setFillColor(40, 167, 69); // Yeşil renk (RGB: 40, 167, 69)
+        pdf.circle(105, 25, 10, 'F'); // Logo boyutunu büyüt
         pdf.setTextColor(255, 255, 255);
-        pdf.setFontSize(16);
+        pdf.setFontSize(20); // 16'dan 20'ye çıkar
         pdf.setFont('helvetica', 'bold');
-        pdf.text('Z', 105, 29, { align: 'center' });
+        pdf.text('Z', 105, 30, { align: 'center' });
         
-        pdf.setTextColor(220, 53, 69);
-        pdf.setFontSize(20);
+        pdf.setTextColor(40, 167, 69); // Yeşil renk (RGB: 40, 167, 69)
+        pdf.setFontSize(24); // 20'den 24'e çıkar
         pdf.setFont('helvetica', 'bold');
-        pdf.text(this.formatTextForPDF('ZİNCİR YAZILIM'), 105, 45, { align: 'center' });
-        pdf.setFontSize(10);
+        pdf.text(this.formatTextForPDF('ZİNCİR YAZILIM'), 105, 50, { align: 'center' });
+        pdf.setFontSize(14); // 10'dan 14'e çıkar
         pdf.setTextColor(255, 107, 53);
-        pdf.text(this.formatTextForPDF('GELECEĞİ SİZİN İÇİN YAZIYORUZ...'), 105, 52, { align: 'center' });
+        pdf.text(this.formatTextForPDF('GELECEĞİ SİZİN İÇİN YAZIYORUZ...'), 105, 58, { align: 'center' });
         
         // Tarih ve teklif no
         pdf.setTextColor(0, 0, 0);
-        pdf.setFontSize(12);
+        pdf.setFontSize(16); // 12'den 16'ya çıkar
         pdf.setFont('helvetica', 'bold');
         pdf.text(this.formatDate(formData.proposal.date), 170, 20, { align: 'right' });
-        pdf.text(`Teklif No: ${formData.proposal.number}`, 170, 27, { align: 'right' });
+        pdf.text(`Teklif No: ${formData.proposal.number}`, 170, 28, { align: 'right' });
         
         // Şirket bilgileri
-        pdf.setFontSize(12);
+        pdf.setFontSize(16); // 12'den 16'ya çıkar
         pdf.setFont('helvetica', 'bold');
-        pdf.text(this.formatTextForPDF('ZİNCİR YAZILIM'), 20, 75);
-        pdf.setFontSize(10);
+        pdf.text(this.formatTextForPDF('ZİNCİR YAZILIM'), 20, 90); // 80'den 90'a çıkar
+        pdf.setFontSize(12); // 10'dan 12'ye çıkar
         pdf.setFont('helvetica', 'normal');
-        pdf.text(this.formatTextForPDF(formData.company.address), 20, 82);
-        pdf.text(`Tel: ${formData.company.phone}`, 20, 89);
-        pdf.text(`E-posta: ${formData.company.email}`, 20, 96);
+        pdf.text(this.formatTextForPDF(formData.company.address), 20, 98); // 88'den 98'e çıkar
+        pdf.text(`Tel: ${formData.company.phone}`, 20, 106); // 96'dan 106'ya çıkar
+        pdf.text(`E-posta: ${formData.company.email}`, 20, 114); // 104'ten 114'e çıkar
         
         // Müşteri bilgileri
-        pdf.setFontSize(12);
+        pdf.setFontSize(16); // 12'den 16'ya çıkar
         pdf.setFont('helvetica', 'bold');
-        pdf.text(this.formatTextForPDF('MÜŞTERİ BİLGİLERİ'), 20, 110);
-        pdf.setFontSize(10);
+        pdf.text(this.formatTextForPDF('MÜŞTERİ BİLGİLERİ'), 20, 140); // 120'den 140'a çıkar
+        pdf.setFontSize(12); // 10'dan 12'ye çıkar
         pdf.setFont('helvetica', 'normal');
-        pdf.text(`${this.formatTextForPDF(formData.client.title || 'Sayın')} ${this.formatTextForPDF(formData.client.name)}`, 20, 117);
+        pdf.text(this.formatTextForPDF(formData.client.name), 20, 148); // 128'den 148'e çıkar
         if (formData.client.company) {
-            pdf.text(this.formatTextForPDF(formData.client.company), 20, 124);
+            pdf.text(this.formatTextForPDF(formData.client.company), 20, 156); // 136'dan 156'ya çıkar
         }
         if (formData.client.address) {
-            pdf.text(this.formatTextForPDF(formData.client.address), 20, 131);
+            pdf.text(this.formatTextForPDF(formData.client.address), 20, 164); // 144'ten 164'e çıkar
         }
         if (formData.client.phone) {
-            pdf.text(`Tel: ${formData.client.phone}`, 20, 138);
+            pdf.text(`Tel: ${formData.client.phone}`, 20, 172); // 152'den 172'ye çıkar
         }
         if (formData.client.email) {
-            pdf.text(`E-posta: ${formData.client.email}`, 20, 145);
+            pdf.text(`E-posta: ${formData.client.email}`, 20, 180); // 160'tan 180'e çıkar
         }
         
         // Hitap ve giriş metni
-        pdf.setFontSize(14);
+        pdf.setFontSize(18); // 14'den 18'e çıkar
         pdf.setFont('helvetica', 'bold');
-        pdf.text(`${this.formatTextForPDF(formData.client.title || 'Sayın')} ${this.formatTextForPDF(formData.client.name)},`, 20, 165);
+        pdf.text(`${this.formatTextForPDF(formData.client.title || 'Sayın')},`, 20, 195); // 175'ten 195'e çıkar
         
         // İçerik
-        pdf.setFontSize(11);
+        pdf.setFontSize(13); // 11'den 13'e çıkar
         pdf.setFont('helvetica', 'normal');
-        const content1 = this.formatTextForPDF('Öncelikle firmamıza gösterdiğiniz ilgi ve detaylı bilgilendirmeler için teşekkür ederiz.');
-        const content2 = this.formatTextForPDF('Firmanıza özel olarak hazırlanan yazılım hizmetimiz ile ilgili detaylı fiyat teklifimiz aşağıdaki sayfalarda yer almaktadır.');
-        const content3 = this.formatTextForPDF('Teklifimizin olumlu değerlendirmesini diler, görüş ve önerilerinizi rica ederiz.');
         
-        pdf.text(content1, 20, 180);
-        pdf.text(content2, 20, 190);
-        pdf.text(content3, 20, 200);
+        // Form alanından gelen metni kullan, yoksa varsayılan metni kullan
+        const proposalText = formData.proposal.text || 'Öncelikle firmamıza gösterdiğiniz ilgi ve detaylı bilgilendirmeler için teşekkür ederiz.\n\nFirmanıza özel olarak hazırlanan yazılım hizmetimiz ile ilgili detaylı fiyat teklifimiz aşağıdaki sayfalarda yer almaktadır.\n\nTeklifimizin olumlu değerlendirmesini diler, görüş ve önerilerinizi rica ederiz.';
+        
+        // Metni paragraflara böl ve yazdır
+        const paragraphs = proposalText.split('\n').filter(p => p.trim() !== '');
+        let yPos = 210; // 190'dan 210'a çıkar
+        paragraphs.forEach(paragraph => {
+            if (paragraph.trim()) {
+                pdf.text(this.formatTextForPDF(paragraph.trim()), 20, yPos);
+                yPos += 12; // Paragraf aralığı
+            }
+        });
         
         // Sayfa sonu
         pdf.addPage();
@@ -751,78 +757,78 @@ Fatura ve Ödeme gününe kadar Vergiler de meydana gelebilecek değişiklikler 
         const formData = this.getFormData();
         
         // Başlık
-        pdf.setFontSize(16);
+        pdf.setFontSize(20); // 16'dan 20'ye çıkar
         pdf.setFont('helvetica', 'bold');
         pdf.text(this.formatTextForPDF('Yazılım Ürün ve Hizmetler Fiyatlandırma Detayları'), 105, 20, { align: 'center' });
         
         // Tablo başlığı
         pdf.setFillColor(51, 51, 51);
-        pdf.rect(20, 35, 170, 12, 'F');
+        pdf.rect(20, 35, 170, 15, 'F'); // Yüksekliği artır
         pdf.setTextColor(255, 255, 255);
-        pdf.setFontSize(11);
+        pdf.setFontSize(13); // 11'den 13'e çıkar
         pdf.setFont('helvetica', 'bold');
-        pdf.text(this.formatTextForPDF('Teklif Edilen Ürün'), 25, 43);
-        pdf.text(this.formatTextForPDF('Adet'), 140, 43, { align: 'center' });
-        pdf.text(this.formatTextForPDF('Liste Fiyatı'), 175, 43, { align: 'right' });
+        pdf.text(this.formatTextForPDF('Teklif Edilen Ürün'), 25, 46);
+        pdf.text(this.formatTextForPDF('Adet'), 140, 46, { align: 'center' });
+        pdf.text(this.formatTextForPDF('Liste Fiyatı'), 175, 46, { align: 'right' });
         
         // Hizmet satırı
-        let yPos = 55;
+        let yPos = 60; // Başlangıç pozisyonunu artır
         formData.services.forEach(service => {
             // Ürün adı
             pdf.setTextColor(0, 0, 0);
-            pdf.setFontSize(11);
+            pdf.setFontSize(13); // 11'den 13'e çıkar
             pdf.setFont('helvetica', 'bold');
             pdf.text(this.formatTextForPDF(service.description), 25, yPos);
             
             // Hizmet detayları
             if (service.details && service.details.length > 0) {
-                yPos += 7;
-                pdf.setFontSize(9);
+                yPos += 8; // Satır aralığını artır
+                pdf.setFontSize(11); // 9'dan 11'e çıkar
                 pdf.setFont('helvetica', 'normal');
                 service.details.forEach(detail => {
                     pdf.text(`• ${this.formatTextForPDF(detail)}`, 30, yPos);
-                    yPos += 5;
+                    yPos += 6; // Satır aralığını artır
                 });
             }
             
             // Adet ve fiyat
-            yPos += 5;
-            pdf.setFontSize(11);
+            yPos += 6; // Satır aralığını artır
+            pdf.setFontSize(13); // 11'den 13'e çıkar
             pdf.setFont('helvetica', 'bold');
             pdf.text(service.quantity.toString(), 140, yPos, { align: 'center' });
             pdf.text(`₺${this.formatTurkishNumber(service.unitPrice)}`, 175, yPos, { align: 'right' });
             
-            yPos += 15;
+            yPos += 18; // Satır aralığını artır
         });
         
         // Toplam
         const subtotal = formData.services.reduce((total, service) => total + service.total, 0);
         const grandTotal = this.calculateGrandTotal();
         
-        pdf.setFontSize(12);
+        pdf.setFontSize(14); // 12'den 14'e çıkar
         pdf.setFont('helvetica', 'bold');
         pdf.text(`TOPLAM: ₺${this.formatTurkishNumber(subtotal)}`, 175, yPos, { align: 'right' });
-        yPos += 8;
+        yPos += 10; // Satır aralığını artır
         
         if (formData.discounts.special > 0) {
             pdf.text(`FİRMANIZA ÖZEL İNDİRİM: ₺${this.formatTurkishNumber(formData.discounts.special)}`, 175, yPos, { align: 'right' });
-            yPos += 8;
+            yPos += 10; // Satır aralığını artır
         }
         
         if (formData.discounts.additional > 0) {
             pdf.text(`SİZE ÖZEL EK İNDİRİM: ₺${this.formatTurkishNumber(formData.discounts.additional)}`, 175, yPos, { align: 'right' });
-            yPos += 8;
+            yPos += 10; // Satır aralığını artır
         }
         
-        pdf.setFontSize(14);
+        pdf.setFontSize(16); // 14'den 16'ya çıkar
         pdf.text(`GENEL TOPLAM: ₺${this.formatTurkishNumber(grandTotal)}`, 175, yPos, { align: 'right' });
         
         // KDV bilgisi
-        yPos += 15;
-        pdf.setFontSize(10);
+        yPos += 18; // Satır aralığını artır
+        pdf.setFontSize(12); // 10'dan 12'ye çıkar
         pdf.setFont('helvetica', 'normal');
         pdf.text(this.formatTextForPDF('Fiyatlarımıza KDV Dahil değildir.'), 20, yPos);
-        pdf.text(this.formatTextForPDF(`KDV oranımız %${formData.vat.rate}'dir.`), 20, yPos + 5);
+        pdf.text(this.formatTextForPDF(`KDV oranımız %${formData.vat.rate}'dir.`), 20, yPos + 6);
         
         // Sayfa sonu
         pdf.addPage();
